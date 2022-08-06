@@ -25,13 +25,16 @@ class jsonwalker:
             for key in elem.attributes.keys():
                 obj["attrs"][key] = elem.attributes[key].value
         obj["children"] = []
+        # print(elem.childNodes, len(elem.childNodes), '\n')
         if len(elem.childNodes) == 0 and elem.nodeName == "term":
             obj["children"] = [""]
         for child in elem.childNodes:
             if child.nodeName == "#comment":
                 pass
             elif child.nodeName == "#text":
-                if len(elem.childNodes) == 1 and elem.nodeName in ["term","single","multiple"]:
+                # Northword 修改于 2022-08-06 ，为了可以让元素内容显示在 children 里
+                # if len(elem.childNodes) == 1 and elem.nodeName in ["term","single","multiple"]:
+                if len(elem.childNodes) == 1:
                     obj["children"].append(child.wholeText)
             else:
                 obj["children"].append(self.walktojson(child))
@@ -89,7 +92,7 @@ if __name__ == "__main__":
                     continue
             
             print("converting " + fullname + " to " + newname)
-            doc = w.makedoc(open(fullname).read())
+            doc = w.makedoc(open(fullname, encoding='utf-8').read())  # Northword 修改，增加了编码
             obj = w.walktojson(doc)
             open(newname, 'w').write(json.dumps(obj,indent=2))
     elif singleFile:
