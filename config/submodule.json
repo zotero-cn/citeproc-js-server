@@ -1,10 +1,10 @@
 {
     "port" : 8085,
     "logLevel" : "info",
-    "localesPath" : "../csl-locales",
+    "localesPath" : "./csl-locales",
     "cslPath" : "../csl",
-    "renamedStylesPath": "../csl/renamed-styles.json",
-    "cslDependentPath": "../csl/dependent",
+    "renamedStylesPath": "./csl-useless/renamed-styles.json",
+    "cslDependentPath": "./csl-useless/dependent",
     "engineCacheSize" : 40,
     "timings": false,
     "debug": true,
